@@ -167,7 +167,11 @@ int main() {
 
 // --- Ex 14 ---
 
-// IMPOSSIBLE WITHOUT LOOPS, RECURSION OR DATA STRUCTURES
+// int n;
+// cin >> n;
+
+// int result = n * (n + 1) / 2;
+// cout << result;
 
 // --- Ex 15 ---
 
@@ -183,4 +187,5 @@ int main() {
 // cin >> a >> b >> c >> d;
 
 // cout << ((c > a && c < b) || (b > c && c < d));
+
 }
