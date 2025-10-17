@@ -313,62 +313,62 @@ int main() {
 
     // --- Ex 16 ---
 
-    char startA, endA, startB, endB, checkCh;
-    cin >> startA >> endA >> startB >> endB >> checkCh;
+    // char startA, endA, startB, endB, checkCh;
+    // cin >> startA >> endA >> startB >> endB >> checkCh;
 
-    // Validation
-    if (!('A' <= startA && startA <= 'Z' && 'A' <= endA && endA <= 'Z'))
-    {
-        cout << "Error! First two characters must be uppercase letters!";
-    }
-    else if (!('a' <= startB && startB <= 'z' && 'a' <= endB && endB <= 'z'))
-    {
-        cout << "Error! Second two characters must be lowercase letters!";
-    }
-    else if (!('A' <= checkCh && checkCh <= 'z'))
-    {
-        cout << "Error! The fifth character must be a letter!";
-    }
-    // Function
-    else
-    {
-        bool isInA = checkCh >= startA && checkCh <= endA;
-        bool isInB = checkCh >= startB && checkCh <= endB;
+    // // Validation
+    // if (!('A' <= startA && startA <= 'Z' && 'A' <= endA && endA <= 'Z'))
+    // {
+    //     cout << "Error! First two characters must be uppercase letters!";
+    // }
+    // else if (!('a' <= startB && startB <= 'z' && 'a' <= endB && endB <= 'z'))
+    // {
+    //     cout << "Error! Second two characters must be lowercase letters!";
+    // }
+    // else if (!('A' <= checkCh && checkCh <= 'z'))
+    // {
+    //     cout << "Error! The fifth character must be a letter!";
+    // }
+    // // Function
+    // else
+    // {
+    //     bool isInA = checkCh >= startA && checkCh <= endA;
+    //     bool isInB = checkCh >= startB && checkCh <= endB;
 
-        if (isInA || isInB) // Union
-        {
-            cout << "true, ";
-        }
-        else
-        {
-            cout << "false, ";
-        }
+    //     if (isInA || isInB) // Union
+    //     {
+    //         cout << "true, ";
+    //     }
+    //     else
+    //     {
+    //         cout << "false, ";
+    //     }
 
-        if (isInA && isInB) // Intersection
-        {
-            cout << "true, ";
-        }
-        else
-        {
-            cout << "false, ";
-        }
+    //     if (isInA && isInB) // Intersection
+    //     {
+    //         cout << "true, ";
+    //     }
+    //     else
+    //     {
+    //         cout << "false, ";
+    //     }
 
-        if (isInA && !isInB) // Difference
-        {
-            cout << "true, ";
-        }
-        else
-        {
-            cout << "false, ";
-        }
+    //     if (isInA && !isInB) // Difference
+    //     {
+    //         cout << "true, ";
+    //     }
+    //     else
+    //     {
+    //         cout << "false, ";
+    //     }
 
-        if ((isInA && !isInB) || (!isInA && isInB)) // Xor
-        {
-            cout << "true";
-        }
-        else
-        {
-            cout << "false";
-        }
-    }
+    //     if ((isInA && !isInB) || (!isInA && isInB)) // Xor
+    //     {
+    //         cout << "true";
+    //     }
+    //     else
+    //     {
+    //         cout << "false";
+    //     }
+    // }
 }
