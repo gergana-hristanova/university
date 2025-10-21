@@ -54,8 +54,8 @@ int main(int argc, char* argv[])
         sdlw::drawLine(x, 250, x + 30, 280); //right bend
         sdlw::drawLine(x, 250, x - 30, 280); //left bend
     }
-    drawCircle(285, 280, 10);
-    drawCircle(345, 280, 10);
+    drawCircle(285, 280, 10); //left cheek
+    drawCircle(345, 280, 10); //right cheek
     
     // EYES
     drawCircle(190, 200, 20); //left
