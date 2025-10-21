@@ -6,9 +6,6 @@ const double A = 50;
 const double step = 1;
 const double ptor = 40;
 
-double finalY = 0;
-
-
 void drawSin(int y0)
 {
     for(double x = 101; x < 530; x += step)
