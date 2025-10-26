@@ -219,6 +219,7 @@ int main()
     // std::cout << isPowerOf2;
 
     // --- Ex 8 ---
+
     //a * x^4 - b * x^3 + c x^2 - d * x + e?
 
     // int a, b, c, d, e;
@@ -240,8 +241,6 @@ int main()
     // }
 
     // --- Ex 9 ---
-
-    // One of the in-out examples seems to be wrong.
 
     // int n;
     // std::cin >> n;
