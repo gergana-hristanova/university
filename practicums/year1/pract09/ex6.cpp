@@ -8,13 +8,6 @@ void bitwiseSwitch(int& a, int& b)
     //... bruh
 }
 
-void noTempSwitch(int& a, int& b)
-{
-    a += b;
-    b = a - b;
-    a -= b;
-}
-
 int main()
 {
     int a = 3;
