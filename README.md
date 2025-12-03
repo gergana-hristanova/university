@@ -16,7 +16,7 @@ A central repository for university projects and assignments, serving as an orga
 
 **university**  
 ├── student  
-│ ├── year1  
+│ ├── semester1  
 │ │ ├── lectures  
 │ │ ├── practicums  
 │ │ ├── seminars  
