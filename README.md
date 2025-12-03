@@ -1,7 +1,6 @@
-# 🎓 Welcome
+# 🎓 University
 
-Welcome to **university**, a central hub for all of my university projects, assignments, and explorations.  
-This repository is meant to serve as a structured archive of my academic journey, showcasing code, reports, and resources across different courses.
+A central repository for university projects and assignments, serving as an organized archive of academic work with code and resources from different courses.
 
 ---
 
@@ -21,3 +20,9 @@ This repository is meant to serve as a structured archive of my academic journey
 │ │ ├── lectures  
 │ │ ├── practicums  
 │ │ ├── seminars  
+
+---
+
+## 📚 Courses
+
+Introduction to Programming (FMI)
