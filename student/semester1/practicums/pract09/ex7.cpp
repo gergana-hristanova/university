@@ -23,6 +23,4 @@ int main()
 {
     std::cout << isBinaryPermutation(7, 1) << std::endl; //false
     std::cout << isBinaryPermutation(7, 11) << std::endl; //true
-
-    //test
 }
