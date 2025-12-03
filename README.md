@@ -1,16 +1,12 @@
 # university
 
 A collection of coding projects and assignments completed during my university studies.  
-This repository serves as a portfolio of my work, showcasing solutions, experiments, and practice code across different courses and topics.
+This repository serves as a portfolio of my academic work, showcasing solutions, experiments, and practice code across different courses and topics.
 
 ---
 
-## 📂 Contents
-- Algorithms and Data Structures
-- Object-Oriented Programming
-- Systems Programming
-- Web Development
-- Miscellaneous university projects
+## 📂 Topics
+- Introduction to Programming (FMI)
 
 ---
 
