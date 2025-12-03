@@ -5,7 +5,7 @@ int reverse(int n)
     int res = 0;
     while (n)
     {
-        (res *= 10) = n % 10;
+        (res *= 10) += n % 10;
         n /= 10;
     }
 
@@ -24,7 +24,27 @@ int decimalToOctal(int n)
     return reverse(res);
 }
 
+int ternaryToDecimal(int n)
+{
+    int decimal = 0;
+    unsigned mult = 1;
+    while (n)
+    {
+        decimal += (n % 10) * mult;
+        mult *= 3;
+
+        n /= 10;
+    }
+
+    return decimal;
+}
+
+int ternaryToOctal(int n)
+{
+    return decimalToOctal(ternaryToDecimal(n));
+}
+
 int main()
 {
-    std::cout << decimalToOctal(90);
+    std::cout << ternaryToOctal(11120); //173
 }
