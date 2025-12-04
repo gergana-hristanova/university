@@ -4,11 +4,11 @@ A central repository for university projects and assignments, serving as an orga
 
 ---
 
-## 👩‍💻 Author
-
-📧 **Email:** gergrana.hristanova@gmail.com  
-🔗 **Linktree:** [linktr.ee/gergana.hristanova](https://linktr.ee/gergana.hristanova)  
-🌍 **Location:** Sofia, Bulgaria  
+## 👩‍💻 Author  
+**Name:** Gergana Hristanova  
+**Email:** gergrana.hristanova@gmail.com
+**Connections:** [linktr.ee/gergana.hristanova](https://linktr.ee/gergana.hristanova)  
+**Location:** Sofia, Bulgaria  
 
 ---
 
@@ -25,4 +25,4 @@ A central repository for university projects and assignments, serving as an orga
 
 ## 📚 Courses
 
-Introduction to Programming (FMI)
+1. Introduction to Programming (FMI)
