@@ -10,7 +10,7 @@ void bitwiseSwitch(int& a, int& b)
 
 int main()
 {
-    int a = 3;
+    int a = -33;
     int b = 600;
     bitwiseSwitch(a, b);
     std::cout << a << std::endl << b;

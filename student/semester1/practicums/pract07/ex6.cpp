@@ -1,6 +1,6 @@
-// #include <iostream>
+#include <iostream>
 
-// const int MAX_SIZE = 8;
+const int MAX_SIZE = 8;
 
 // int binaryToDecimal(int bin)
 // {
@@ -61,3 +61,20 @@
 //     }
 // }
 
+
+
+void negativeBinary(int n)
+{
+    n = -n;
+    while (n)
+    {
+        std::cout << n % 2;
+        n /= 2;
+    }
+}
+
+int main()
+{
+    bool bin[MAX_SIZE] = { 0 };
+    negativeBinary(0b00001010);
+}
