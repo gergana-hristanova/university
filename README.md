@@ -6,7 +6,7 @@ A central repository for university projects and assignments, serving as an orga
 
 ## 👩‍💻 Author  
 **Name:** Gergana Hristanova  
-**Email:** gergrana.hristanova@gmail.com
+**Email:** gergrana.hristanova@gmail.com  
 **Connections:** [linktr.ee/gergana.hristanova](https://linktr.ee/gergana.hristanova)  
 **Location:** Sofia, Bulgaria  
 
