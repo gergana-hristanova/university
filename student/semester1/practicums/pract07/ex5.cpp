@@ -23,7 +23,9 @@ void fromDecimalToRandom(int decimal, char to[], size_t size, unsigned base)
 
 int getIndexFromSymbol(char sym)
 {
-    if ('0' <= sym && sym <= '9')
+    if (sym == 0)
+        return 0;
+    else if ('0' <= sym && sym <= '9')
         return sym - '0';
     else if ('A' <= sym && sym <= 'Z')
         return 10 + sym - 'A';
@@ -57,12 +59,12 @@ void printArr(const char arr[], size_t size)
 
 int main()
 {
-    char from[BIT_SIZE] = { '4', '5', '7', '1', 'B', 'A' };
+    char from[BIT_SIZE] = { 0, 0, 0, 0, '4', '5', 'A', '1' };
     char to[BIT_SIZE] = { 0 };
 
     fromBase12ToBase13(from, to);
 
-    printArr(to, BIT_SIZE);
+    std::cout << fromRandomToDecimal(from, BIT_SIZE, 12) << std::endl;
 
-    std::cout << std::endl << fromRandomToDecimal(from, BIT_SIZE, 12);
+    printArr(to, BIT_SIZE);
 }
