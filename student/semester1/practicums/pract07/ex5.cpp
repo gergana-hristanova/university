@@ -1,6 +1,6 @@
 #include <iostream>
 
-constexpr size_t BIT_SIZE = 32;
+constexpr size_t BIT_SIZE = 8;
 
 char getSymbolFromIndex(int n)
 {
@@ -23,24 +23,46 @@ void fromDecimalToRandom(int decimal, char to[], size_t size, unsigned base)
 
 int getIndexFromSymbol(char sym)
 {
-    if ('0' <= sym <= '9')
+    if ('0' <= sym && sym <= '9')
         return sym - '0';
     else if ('A' <= sym && sym <= 'Z')
         return 10 + sym - 'A';
+    else
+        return -1;
 }
 
-int fromRandomToDecimal(char from[], size_t size, int to, unsigned base)
+int fromRandomToDecimal(char from[], size_t size, unsigned base)
 {
     int decimal = 0;
     for (int i = size - 1, mult = 1; i >= 0; i--, mult *= base)
     {
-        decimal += from[i] * mult;
+        decimal += getIndexFromSymbol(from[i]) * mult;
     }
 
     return decimal;
 }
 
+void fromBase12ToBase13(char from[], char to[])
+{
+    int decimal = fromRandomToDecimal(from, BIT_SIZE, 12);
+    fromDecimalToRandom(decimal, to, BIT_SIZE, 13);
+}
+
+void printArr(const char arr[], size_t size)
+{
+    for (size_t i = 0; i < size; i++)
+        std::cout << arr[i];
+    std::cout << std::endl;
+}
+
 int main()
 {
-    char from[32] = { 0 };
+    char from[BIT_SIZE] = { '4', '5', '7', '1', 'B', 'A' };
+    char to[BIT_SIZE] = { 0 };
+
+    fromBase12ToBase13(from, to);
+
+    printArr(to, BIT_SIZE);
+
+    std::cout << std::endl << fromRandomToDecimal(from, BIT_SIZE, 12);
 }

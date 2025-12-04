@@ -8,14 +8,21 @@ void split(int arr[], size_t size, int pivot)
 
     while (current < size)
     {
-        if (current <= pivot)
+        if (arr[current] <= pivot)
         {
             ++current;
         }
         else
         {
             if (arr[search] <= pivot)
+            {
                 std::swap(arr[current], arr[search]);
+                ++current;
+            }
+            else
+            {
+                
+            }
         }
     }
 }
