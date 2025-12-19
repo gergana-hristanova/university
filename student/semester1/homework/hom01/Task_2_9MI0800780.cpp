@@ -31,6 +31,17 @@ void printBoard()
     }
 }
 
+void resetBoard()
+{
+    for (size_t i = 0; i < N; i++)
+    {
+        for (size_t j = 0; j < N; j++)
+        {
+            board[i][j] = 0;
+        }
+    }
+}
+
 int randFromTo(unsigned from, unsigned to)
 {
     return from + rand() % (to - from + 1);
@@ -99,16 +110,14 @@ void addNewNum()
 {
     if (!hasEmptyCell()) return;
 
-    size_t i = randFromTo(0, N - 1);
-    size_t j = randFromTo(0, N - 1);
-
-    if (board[i][j] != 0)
-    {
-        addNewNum();
-        return;
+    while (true) {
+        size_t i = randFromTo(0, N - 1);
+        size_t j = randFromTo(0, N - 1);
+        if (board[i][j] == 0) {
+            board[i][j] = (randFromTo(1, 10) == 1) ? 4 : 2;
+            break;
+        }
     }
-
-    board[i][j] = (randFromTo(1, 10) == 1) ? 4 : 2;
 }
 
 void compressRow(unsigned row[]) 
@@ -327,3 +336,9 @@ int main()
     cout << "Quitting game...";
     return 0;
 }
+
+// Може ли да ползваме функция за четене на цял ред от конзолата за 3 зад? ---да
+// Може ли да ползваме srand(time(0)) във 2 зад?
+// Може ли да ползваме проверка от вида if(cin >> n) за валидация на входни данни? ---няма нужда, защото при въведен текст и непроверено такова няма да е санкция
+// Може ли да имаме вложени цикли при обхождане на матрицата във 2 зад? ---да
+// Грешен ли е примерът в 3 зад? ---да, трябва да е 100 вместо 10
