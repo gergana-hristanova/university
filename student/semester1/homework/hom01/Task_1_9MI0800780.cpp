@@ -39,20 +39,32 @@ size_t strLen(const char* str)
     return len;
 }
 
+bool hasUniqueDigits(const char* num)
+{
+    bool seen[10] = { 0 };
+    for (size_t i = 0; i < M; i++)
+    {
+        int currDigit = num[i] - '0';
+
+        if (seen[currDigit])
+            return false;
+
+        seen[currDigit] = 1;
+    }
+
+    return true;
+}
+
 bool isValidNum(const char* num)
 {
     if (strLen(num) != M) return false;
 
-    bool seen[10] = { 0 };
+    if (!hasUniqueDigits(num)) return false;
+
     while(*num)
     {
         if (*num < '0' || *num > '9')
             return false;
-        
-        size_t asDigit = *num - '0';
-        if (seen[asDigit]) return false;
-
-        seen[asDigit] = 1;
         
         num++;
     }
@@ -106,17 +118,23 @@ void enterGuesses()
     }
 }
 
-void increment(char* cand)
+bool incrementCand(char* cand)
 {
-    for (size_t i = M - 1; i >= 0 ; i--)
+    for (size_t i = 0; i < M; i++)
     {
-        if (cand[i] < '9')
-            cand[i]++;
-        else
+        //had to use forward-going for because M is size_t and turns i into size_t (and casting is not studied yet)
+        size_t index = M - i - 1;
+
+        if (cand[index] < '9')
         {
-            cand[i] = '0';
+            cand[index]++;
+            return true;
         }
+
+        cand[index] = '0';
     }
+
+    return false;
 }
 
 void getBullsAndCowsOfCand(const char* cand, const char* guess, unsigned &bulls, unsigned &cows)
@@ -143,15 +161,38 @@ void getBullsAndCowsOfCand(const char* cand, const char* guess, unsigned &bulls,
     }
 }
 
+bool matchesAll(const char* cand)
+{
+    for (size_t i = 0; i < N; i++)
+    {
+        unsigned candBulls = 0;
+        unsigned candCows = 0;
+        getBullsAndCowsOfCand(cand, numbers[i], candBulls, candCows);
+
+        if (candBulls != bulls[i] || candCows != cows[i])
+            return false;
+    }
+
+    return true;
+}
+
 void computePossibleGuesses()
 {
     char cand[MAX_LENGTH + 1] = { 0 };
 
-    //initial guess is 012... M digits
     for (size_t i = 0; i < M; i++)
         cand[i] = '0' + i;
-    
-    cout << cand;
+
+    cout << "Possible numbers:" << endl;
+
+    while (true)
+    {
+        if (hasUniqueDigits(cand) && matchesAll(cand))
+            cout << cand << endl;
+
+        if (!incrementCand(cand))
+            break;
+    }
 }
 
 int main()
@@ -159,8 +200,6 @@ int main()
     enterGameSettings();
 
     enterGuesses();
-
-    //printAll();
 
     computePossibleGuesses();
 
