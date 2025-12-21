@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -14,7 +13,7 @@ bool isPlaying = false;
 
 void clearConsole()
 {
-    system("clear"); //cls for Windows
+    system("cls");
 }
 
 void printBoard()
@@ -273,7 +272,7 @@ void adjustSettings()
     cin >> boardSize;
     while (!(3 <= boardSize && boardSize <= MAX_SIZE))
     {
-        cout << "Board size must be (3... " << MAX_SIZE << "). Enter again:" << endl;
+        cout << "Board size must be [3... " << MAX_SIZE << "]. Enter again:" << endl;
         cin >> boardSize;
     }
 
@@ -282,7 +281,7 @@ void adjustSettings()
     cin >> winCond;
     while (!(4 <= winCond && winCond <= 31))
     {
-        cout << "Win condition must be (4...31). Enter again:" << endl;
+        cout << "Win condition must be [4...31]. Enter again:" << endl;
         cin >> winCond;
     }
 
