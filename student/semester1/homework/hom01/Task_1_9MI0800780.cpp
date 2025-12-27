@@ -111,7 +111,7 @@ void enterGuesses()
         for (size_t j = 0; j < M; j++)
             numbers[i][j] = num[j];
         
-        numbers[i][M] = 0; //place terminator after end of digit
+        numbers[i][M] = 0;
 
         bulls[i] = currBulls;
         cows[i] = currCows;
