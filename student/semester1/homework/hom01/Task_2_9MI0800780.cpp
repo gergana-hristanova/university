@@ -311,17 +311,20 @@ void handleHomescreenInput()
 
 void homescreen()
 {
-    clearConsole();
+    while (true)
+    {
+        clearConsole();
 
-    cout << "=== WELCOME TO 2048 ===" << endl
-         << "1 - Start Game" << endl
-         << "2 - Settings" << endl
-         << "3 - Quit" << endl;
+        cout << "=== WELCOME TO 2048 ===" << endl
+             << "1 - Start Game" << endl
+             << "2 - Settings" << endl
+             << "3 - Quit" << endl;
 
-    handleHomescreenInput();
+        handleHomescreenInput();
 
-    if (!hasQuit && !isPlaying)
-        homescreen();
+        if (hasQuit || isPlaying)
+            break;
+    }
 }
 
 int main()
