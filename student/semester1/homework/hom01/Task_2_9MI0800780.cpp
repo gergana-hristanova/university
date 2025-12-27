@@ -13,7 +13,7 @@ bool isPlaying = false;
 
 void clearConsole()
 {
-    system("cls");
+    system("clear");
 }
 
 void printBoard()
