@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ bool isPlaying = false;
 
 void clearConsole()
 {
-    system("clear");
+    system("cls"); //"clear" for Linux
 }
 
 void printBoard()
