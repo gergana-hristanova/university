@@ -26,6 +26,7 @@ A central repository for university projects and assignments, serving as an orga
 
 ---
 
-## 📚 Courses
+## 📚 Covered Courses
 
 1. Introduction to Programming (FMI)
+2. Object-oriented Programming (FMI)
