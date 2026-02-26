@@ -17,10 +17,12 @@ A central repository for university projects and assignments, serving as an orga
 **university**  
 ├── student  
 │ ├── semester1  
+│ │ ├── homework  
 │ │ ├── lectures  
 │ │ ├── practicums  
 │ │ ├── seminars  
-│ │ ├── homework  
+│ ├── semester2  
+│ │ ├── practicums
 
 ---
 
