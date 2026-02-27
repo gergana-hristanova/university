@@ -1,7 +1,5 @@
 #include <iostream>
 
-//TODO
-
 // from ex0.cpp for printing end result
 template<typename T>
 void print(const T* arr, size_t size) {
