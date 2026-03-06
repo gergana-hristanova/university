@@ -22,6 +22,7 @@ A central repository for university projects and assignments, serving as an orga
 │ │ ├── practicums  
 │ │ ├── seminars  
 │ ├── semester2  
+│ │ ├── extras
 │ │ ├── practicums
 
 ---
