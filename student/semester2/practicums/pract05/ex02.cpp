@@ -14,7 +14,7 @@ class Maybe
         return !isNull;
     }
 
-    T get() const
+    T& get()
     {
         assert(hasValue());
         return data;
@@ -58,18 +58,23 @@ class Maybe
         }
     }
 
+    friend std::ostream& operator<<(std::ostream& os, const Maybe& m)
+    {
+        return os << m.data << std::endl;
+    }
+
     private:
     T data;
     bool isNull;
 };
 
-int main()
-{
-    Maybe<int> m1 = Maybe<int>();
-    m1.print();
-    m1 = 7;
-    std::cout << m1.get() << std::endl;
-    m1.print();
+// int main()
+// {
+//     Maybe<int> m1 = Maybe<int>();
+//     m1.print();
+//     m1 = 7;
+//     std::cout << m1.get() << std::endl;
+//     m1.print();
 
-    std::cout << (bool)m1 << std::endl;
-}
+//     std::cout << (bool)m1 << std::endl;
+// }
