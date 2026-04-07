@@ -171,5 +171,5 @@ int main()
     s1.add(1).add(3).add(2).add(4).add(4).remove(2);
     
     int s2_elems[3] = { 1, 2, 3 };
-    Set<int> s2 = Set<int>()
+    Set<int> s2 = Set<int>();
 }
