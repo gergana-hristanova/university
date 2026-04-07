@@ -1,3 +1,5 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "lib/doctest/doctest/doctest.h"
 #include <iostream>
 
 template <typename T>
@@ -5,7 +7,7 @@ class Set
 {
 public:
     Set()
-     : elems(new T[1]),
+     : elems(new T[1]{T(0)}),
        size(0),
        capacity(1)
     {}
@@ -57,17 +59,57 @@ public:
         
         T* res_elems = new T[res_capacity];
         
-        for (std::size_t i = 0; i < size; i++)
+        for (std::size_t i = 0; i < size; ++i)
         {
             res_elems[i] = elems[i];
         }
         
-        for (std::size_t i = 0; i < other.size; i++)
+        std::size_t countOtherElems = 0;
+        for (std::size_t i = 0; i < other.size; ++i)
         {
-            res_elems[size + i] = other.elems[i];
+            T current = other.elems[i];
+            if (!hasElement(current))
+            {
+                res_elems[size + countOtherElems++] = current;
+            }
         }
         
-        return Set(res_elems, size + other.size, res_capacity);
+        return Set(res_elems, size + countOtherElems, res_capacity);
+    }
+
+    Set& operator+=(const Set &other)
+    {
+        std::size_t res_capacity = capacity + other.capacity;
+        
+        T* res_elems = new T[res_capacity];
+        
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            res_elems[i] = elems[i];
+        }
+        
+        std::size_t countOtherElems = 0;
+        for (std::size_t i = 0; i < other.size; ++i)
+        {
+            T current = other.elems[i];
+            if (!hasElement(current))
+            {
+                res_elems[size + countOtherElems++] = current;
+            }
+        }
+
+        delete [] elems;
+        
+        elems = res_elems;
+        size += countOtherElems;
+        capacity = res_capacity;
+
+        return *this;
+    }
+
+    T operator[](std::size_t index) const
+    {
+        return elems[index];
     }
 
     friend std::ostream& operator<<(std::ostream &os, const Set &s)
@@ -83,6 +125,16 @@ public:
     ~Set()
     {
         delete [] elems;
+    }
+
+    std::size_t getSize() const
+    {
+        return size;
+    }
+
+    std::size_t getCapacity() const
+    {
+        return capacity;
     }
 
     bool hasElement(T el) const
@@ -165,11 +217,86 @@ private:
     }
 };
 
-int main()
+TEST_CASE("declaration of set")
 {
-    Set<int> s1 = Set<int>();
-    s1.add(1).add(3).add(2).add(4).add(4).remove(2);
-    
-    int s2_elems[3] = { 1, 2, 3 };
-    Set<int> s2 = Set<int>();
+    SUBCASE("delcaration of empty set")
+    {
+        Set<int> s = Set<int>();
+
+        CHECK_EQ(s[0], 0);
+        CHECK_EQ(s.getSize(), (std::size_t) 0);
+        CHECK_EQ(s.getCapacity(), (std::size_t) 1);
+    }
+
+    SUBCASE("declaration of set with const array and size")
+    {
+        std::size_t size = 3;
+        int arr[size] = { 1, 2, 3 };
+
+        Set<int> s = Set<int>(arr, size);
+
+        CHECK_EQ(s.getSize(), size);
+        CHECK_EQ(s.getCapacity(), size);
+
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            CHECK_EQ(s[i], arr[i]);
+        }
+    }
+
+    SUBCASE("declaration of set with const array, size, and capacity")
+    {
+        std::size_t size = 3;
+        std::size_t capacity = 6;
+        int arr[size] = { 1, 2, 3 };
+
+        Set<int> s = Set<int>(arr, size, capacity);
+
+        CHECK_EQ(s.getSize(), size);
+        CHECK_EQ(s.getCapacity(), capacity);
+
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            CHECK_EQ(s[i], arr[i]);
+        }
+    }
+
+    SUBCASE("declaration of set by copying other set")
+    {
+        std::size_t size = 3;
+        std::size_t capacity = 6;
+        int arr[size] = { 1, 2, 3 };
+
+        Set<int> s1 = Set<int>(arr, size, capacity);
+        Set<int> s2 = Set<int>(s1);
+
+        CHECK_EQ(s1.getSize(), size);
+        CHECK_EQ(s1.getCapacity(), capacity);
+
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            CHECK_EQ(s1[i], arr[i]);
+        }
+    }
+}
+
+TEST_CASE("set operators")
+{
+    SUBCASE("set operator=")
+    {
+        std::size_t size = 3;
+        std::size_t capacity = 6;
+        int arr[size] = { 1, 2, 3 };
+
+        Set<int> s1 = Set<int>(arr, size, capacity);
+        Set<int> s2 = s1;
+
+        CHECK_EQ(s1.getSize(), size);
+        CHECK_EQ(s1.getCapacity(), capacity);
+
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            CHECK_EQ(s1[i], arr[i]);
+        }
+    }
 }
