@@ -103,7 +103,7 @@ private:
 
 int main()
 {
-    Vector v1 = Vector<int>();
+    Vector<int> v1 = Vector<int>();
     v1.push_back(1).push_back(3).push_back(5).push_back(8).push_back(0).pop_back().push_back(9);
     std::cout << v1;
     std::cout << v1[2] << std::endl;
