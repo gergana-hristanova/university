@@ -24,7 +24,10 @@ A central repository for university projects and assignments, serving as an orga
 │ ├── semester2  
 │ │ ├── extras  
 │ │ ├── practicums  
-│ │ ├── seminars
+│ │ ├── seminars  
+│ ├── semester3  
+│ │ ├── bcg (basics of computer graphics)  
+│ │ ├── fp (functional programming)  
 
 ---
 
