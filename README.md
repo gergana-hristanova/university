@@ -16,19 +16,26 @@ A central repository for university projects and assignments, serving as an orga
 
 **university**  
 ├── student  
-│ ├── semester1  
+│ ├── semester1 (introduction to programming)  
 │ │ ├── homework  
 │ │ ├── lectures  
 │ │ ├── practicums  
 │ │ ├── seminars  
-│ ├── semester2  
+│ ├── semester2 (object-oriented programming)  
 │ │ ├── extras  
 │ │ ├── practicums  
-│ │ ├── seminars
+│ │ ├── seminars  
+│ ├── semester3  
+│ │ ├── bcg (basics of computer graphics)  
+│ │ ├── fp (functional programming)  
+│ │ ├── dsp (data structures and programming)  
 
 ---
 
 ## 📚 Covered Courses
 
-1. Introduction to Programming (FMI)
-2. Object-oriented Programming (FMI)
+1. Introduction to Programming
+2. Object-oriented Programming
+3. Functional Programming
+4. Data Structures and Programming
+5. Basics of Computer Graphics
