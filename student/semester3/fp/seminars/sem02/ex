@@ -1,0 +1,85 @@
+#lang racket
+
+; === Ex 1 ===
+
+(define (sum_interval a b)
+  (define (loop sum i)
+    (if (> i b)
+     sum
+    (loop (+ sum i) (+ i 1))))
+  (loop 0 a))
+
+; === Ex 2 ===
+
+ (define (count_digit d n)
+  (define (loop n count)
+    (if (= n 0)
+        count
+        (if (= (remainder n 10) d)
+            (loop (quotient n 10) (+ count 1))
+            (loop (quotient n 10) count))))
+   (loop n 0))
+
+; === Ex 3 ===
+
+(define (reverse_digit n)
+  (define (loop n res)
+    (if (= n 0)
+    res
+    (loop (quotient n 10) (+ (* res 10) (remainder n 10)))))
+  (loop n 0))
+
+; === Ex 4 ===
+; Да се напише функция, която намира сумата на всички делители на дадено естествено число.
+
+(define (divisors_sum n)
+  (define (loop i sum)
+    (if (> i n)
+        sum
+        (if (= 0 (remainder n i))
+            (loop (+ i 1) (+ i sum))
+            (loop (+ i 1) sum))))
+  (loop 1 0))
+
+; === Ex 5 ===
+; Да се напише функци, която проверява дали даден число е съвършено.
+; Съвършени числа са тези, за които сумата на всичките им делители (без самото число) е равна на същото число.
+
+(define (perfect? n)
+  (= (- (divisors_sum n) n) n))
+
+; === Ex 6 ===
+; Да се напише функция, която проверява дали дадено число е просто.
+
+(define (prime? n)
+  (define (loop i)
+    (if (= 0 (remainder n i))
+        #f
+        (if (= (- n 1) i)
+            #t
+            (loop (+ i 1)))))
+  (if (= n 1)
+      #f
+  (loop 2)))
+
+; === Ex 7 ===
+; Да се напише функция (increasing? n), която проверява дали цифрите на дадено естествено число са в нарастващ ред.
+
+(define (increasing? n)
+  (define (loop n x y)
+    (if (< x y)
+        #f
+        (if (< n 100)
+            (< x y)
+            (loop (quotient n 10) (remainder n 10) (remainder (quotient n 10) 10)))))
+  (loop n (remainder n 10) (remainder (quotient n 10) 10)))
+
+
+
+
+
+
+
+
+
+
