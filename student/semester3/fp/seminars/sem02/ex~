@@ -1,8 +1,0 @@
-#lang racket
-
-(define (sum_interval a b)
-  (define (loop sum i)
-    (if (> i b)
-     sum
-    (loop (+ sum i) (+ i 1))))
-  (loop 0 a))

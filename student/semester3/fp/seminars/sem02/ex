@@ -66,20 +66,39 @@
 ; Да се напише функция (increasing? n), която проверява дали цифрите на дадено естествено число са в нарастващ ред.
 
 (define (increasing? n)
-  (define (loop n x y)
-    (if (< x y)
-        #f
-        (if (< n 100)
-            (< x y)
-            (loop (quotient n 10) (remainder n 10) (remainder (quotient n 10) 10)))))
-  (loop n (remainder n 10) (remainder (quotient n 10) 10)))
+  (define (loop n d1 d2)
+    (if (> n 100)
+        (<= d1 d2)
+             ;   step             ; digit 1                 ; digit 2
+        (loop (quotient n 10) (remainder (quotient n 10) 10) (quotient n 10))))
+  (loop n (remainder (quotient n 10) 10) (remainder n 10)))
 
+; === Ex 8 ===
+; Да се напише функция, която превръща дадено естествено число в двоична бройна система.
 
+(define (toBinary n)
+  (define (loop n res counter)
+    (if (= n 0)
+        res
+        (loop (quotient n 2) (+ res (* (remainder n 2) (expt 10 counter))) (+ 1 counter))))
+  (loop n 0 0))
 
+; === Ex 9 ===
+; Да се напише функция, която превръща дадено естествено число от двоична в десетична бройна система:
 
+(define (toDecimal bin)
+  (define (loop bin dec counter)
+    (if (= bin 0)
+        dec
+        (loop (quotient bin 10) (+ dec (* (remainder bin 10) (expt 2 counter))) (+ 1 counter))))
+  (loop bin 0 0))
 
+; === Ex 10 ===
+; Напишете функция, която пресмята x^n бързо [n е четно: (x^n = (x^(n/2))^2, в противен случай: x^n = x*(x^(n/2))^2].
 
+(define (square n) (* n n))
 
-
-
-
+(define (qexpt x n)
+  (cond [(= n 0) 1]
+        [(= 0 (remainder n 2)) (square (qexpt x (/ n 2)))]
+        [else (* x (qexpt (square x) (/ (- n 1) 2)))]))   
