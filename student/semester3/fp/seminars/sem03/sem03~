@@ -1,0 +1,7 @@
+#lang racket
+
+; === Ex 1 ===
+; (const c), която по дадена константа c връща функцията f(x)=c
+
+(define (const c)
+  (lambda (x) c))

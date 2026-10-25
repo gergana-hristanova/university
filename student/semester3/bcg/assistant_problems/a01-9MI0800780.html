@@ -1,0 +1,142 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+		<script type="importmap">
+			{ "imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+			} }
+		</script>
+	</head>
+	<body>
+		<script type="module">
+
+		// SCENE SETUP
+		
+			import * as THREE from "three";
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 4, 3, 6 );
+			camera.lookAt( scene.position );
+			
+		// TERRACE CONSTRUCTION
+
+			// 1. Adding a back wall for the terrace to sit against
+
+			var back_wall_geom = new THREE.BoxGeometry( 50, 20, 1 );
+			var material = new THREE.MeshPhongMaterial();
+			material.color.set('cray'); //like a concrete wall
+
+			var back_wall = new THREE.Mesh( back_wall_geom, material );
+			back_wall.position.set(0, 0, -5);
+			scene.add( back_wall );
+
+			// 2. Constructing the terrace itself
+			
+			material = new THREE.MeshPhongMaterial();
+			material.color.set('white'); //like marble
+
+			// floor
+
+			var wide_slate_geom = new THREE.BoxGeometry(3.5, 0.3, 2.5);
+			var wide_slate = new THREE.Mesh( wide_slate_geom, material );
+			wide_slate.position.set(-1.5, -2.5, -3);
+			scene.add(wide_slate);
+			
+			// front poles
+
+			var pole_geom = new THREE.BoxGeometry(0.2, 2, 0.2);
+			for (var i = 0; i >= -3; i -= 0.5)
+			{
+				var pole = new THREE.Mesh( pole_geom, material );
+				pole.position.set(i, -1.5, -2);
+				scene.add(pole);
+			}
+
+			// side poles
+
+			for (var i = -2; i >= -4; i -= 0.5)
+			{
+				var pole = new THREE.Mesh( pole_geom, material );
+				pole.position.set(-3, -1.5, i);
+				scene.add(pole);
+
+				var pole = new THREE.Mesh( pole_geom, material );
+				pole.position.set(0, -1.5, i);
+				scene.add(pole);
+			}
+
+			// hand rests
+
+			var front_hand_rest_geom = new THREE.BoxGeometry(3.5, 0.3, 0.3);
+			var front_hand_rest = new THREE.Mesh( front_hand_rest_geom, material );
+			front_hand_rest.position.set(-1.5, -0.5, -2);
+			scene.add(front_hand_rest);
+
+			var block_geom = new THREE.BoxGeometry(0.3, 0.3, 2.5);
+			var side_hand_rest = new THREE.Mesh( block_geom, material );
+			side_hand_rest.position.set(0, -0.5, -3);
+			scene.add(side_hand_rest);
+			
+			side_hand_rest = new THREE.Mesh( block_geom, material );
+			side_hand_rest.position.set(-3, -0.5, -3);
+			scene.add(side_hand_rest);
+
+			// supports
+
+			var block_geom = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+			
+			for (var i = 0; i <= 3; i += 0.2)
+			{
+				var support_block = new THREE.Mesh( block_geom, material );
+				support_block.position.set(0, i - 5.5, i - 5.3);
+				scene.add(support_block);
+
+				var support_block = new THREE.Mesh( block_geom, material );
+				support_block.position.set(-3, i - 5.5, i - 5.3);
+				scene.add(support_block);
+			}
+			
+			// corner decorations
+
+			var deco_block = new THREE.Mesh( block_geom, material );
+			deco_block.position.set(-3, -0.1, -2);
+			scene.add(deco_block);
+
+			deco_block = new THREE.Mesh( block_geom, material );
+			deco_block.position.set(0, -0.1, -2);
+			scene.add(deco_block);
+
+			var tiny_block_geom = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+
+			var tiny_deco_block = new THREE.Mesh( tiny_block_geom, material );
+			tiny_deco_block.position.set(-3, -0.3, -2);
+			scene.add(tiny_deco_block);
+
+			tiny_deco_block = new THREE.Mesh( tiny_block_geom, material );
+			tiny_deco_block.position.set(0, -0.3, -2);
+			scene.add(tiny_deco_block);
+			
+		// LIGHT SETUP
+
+			var light = new THREE.PointLight( 'white', 50 );
+			light.position.set( -1, 2, 0 );
+			scene.add( light );
+
+			light.position.set( 1, 2, 0 );
+			scene.add( light );
+
+			renderer.render( scene, camera );
+			
+		</script>
+	</body>
+</html>

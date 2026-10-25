@@ -1,0 +1,121 @@
+#lang racket
+
+; === Ex 0.1 ===
+; (const c), която по дадена константа c връща функцията f(x)=c
+
+(define (const c)
+  (lambda (x) c))
+
+; === Ex 0.2 ===
+; (flip f), която приема двуместна функция и връща същата функция, но с разменени места на нейните аргументи
+
+(define (flip f)
+  (lambda (x y) (f y x)))
+
+; == Ex 0.3 ===
+; (compose f g), която връща композицията на две дадени едноместни функции
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+; === Ex 1 ===
+; Да се напише функцията (repeat n f), която връща n-кратната композиция на дадена функция f
+
+(define (repeat n f)
+    (if (<= n 1)
+        f
+        (lambda (x) (f ((repeat (- n 1) f) x)))))
+
+; === Ex 2 ===
+; (twist k f g), която за f и g и четно число k връща функция f(g(f(g(...(x)...)))), където общият брой извиквания на f и g е k.
+
+(define (twist k f g)
+  (if (<= k 2)
+      (lambda (x) (f (g x)))
+      (lambda (x) (f (g ((twist (- k 2) f g) x))))))
+
+(define (accumulate op nv a b term next)
+  (if (> a b) nv
+      (op (term a)
+          (accumulate op nv (next a) b term next))))
+
+; === Ex 3 ===
+; n!!
+
+(define (!! n)
+  (accumulate * 1 (if (odd? n) 1 2) n (lambda (x) x) (lambda (x) (+ x 2))))
+
+; === Ex 4 ===
+; (nchk n k), която за дадени естествени числа n и k изчислява биномния коефициент 'n над k'
+
+(define (! n)
+  (accumulate * 1 1 n (lambda (x) x) (lambda (x) (+ x 1))))
+
+(define (nchk n k)
+  (/ (! n) (* (! k) (! (- n k)))))
+
+; === Ex 5 ===
+; (2^ n)
+
+(define (2^ n)
+  (accumulate * 1 1 n (lambda (x) 2) (lambda (x) (+ x 1))))
+
+; === Ex 6 ===
+; Да се напишат функциите (all? p? a b) и (any? p? a b),
+; които проверяват дали даден предикат p? е изпълнен за всяко (съотв. за някое) число в интервала [a;b]
+
+(define (and* x y) (and x y))
+
+(define (all? p? a b)
+  (accumulate and* #t a b p? (lambda (x) (+ x 1))))
+
+(define (or* x y) (or x y))
+
+(define (any? p? a b)
+  (accumulate or* #f a b p? (lambda (x) (+ x 1))))
+
+; === Ex 8 ===
+; Да се напише функция (divisors-sum n), която намира сумата на всички делители на естественото число n.
+
+(define (get-divider n k)
+  (if (= 0 (remainder n k))
+      k
+      0))
+
+(define (divisors-sum n)
+  (accumulate + 0 1 n (lambda (x) (get-divider n x)) (lambda (x) (+ x 1))))
+
+; === Ex 9 ===
+; Да се напише функция (count p? a b), която проверява
+; за колко измежду числата в целочисления интервал [a;b] е верен предиката p?.
+
+; (accumulate op nv a b term next)
+
+(define (count p? a b)
+  (accumulate + 0 a b (lambda (x) (if (p? x) 1 0)) (lambda (x) (+ x 1))))
+
+; === Ex 10 ===
+; Да се напише функция (prime? n), която проверява дали дадено число е просто.
+
+(define (prime n)
+  (if (= n 1)
+      #f
+      (not (accumulate or* #f 2 (- n 1) (lambda (x) (= 0 (remainder n x))) (lambda (x) (+ x 1))))))
+
+; === Ex 11 ===
+; Да се напише функцията от по-висок ред, използвайки accumulate.
+
+(define (repeat-acc n f)
+  (accumulate - 0 n 0 (lambda (x) (f x)) (lambda (x) (+ 1 x))))
+
+; === Ex 13 ===
+; Да се напише функция, която по интервал [a;b] намира това число, за което f връща най-висока стойност.
+
+(define (get-max f x y)
+  (if (> (f x) (f y))
+      x
+      y))
+
+(define (argmax f a b)
+  (accumulate (lambda (x y) (get-max f x y)) a a b (lambda (x) x) (lambda (x) (+ x 1))))
+
