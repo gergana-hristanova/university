@@ -1,0 +1,75 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+		<script type="importmap">
+			{ "imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+			} }
+		</script>
+	</head>
+	<body>
+		<script type="module">
+		
+			import * as THREE from "three";
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 0, 20 );
+			camera.lookAt( scene.position );
+
+
+
+			var pill = new THREE.Group();
+
+			var red_mat = new THREE.MeshPhongMaterial( {color:'red'} );
+			var white_mat = new THREE.MeshPhongMaterial( {color:'white'} );
+
+			var cylinder_geom = new THREE.CylinderGeometry( 1, 1, 2.5, 16 );
+			
+			var white_cylinder = new THREE.Mesh( cylinder_geom, white_mat );
+			white_cylinder.position.set(0, 1.25, 0);
+			pill.add( white_cylinder );
+
+			var red_cylinder = new THREE.Mesh( cylinder_geom, red_mat );
+			red_cylinder.position.set(0, -1.25, 0);
+			pill.add( red_cylinder );
+
+
+			var sphere_geom = new THREE.SphereGeometry( 1, 16, 16 );
+
+			var white_cap = new THREE.Mesh( sphere_geom, white_mat );
+			white_cap.position.set(0, 2.5, 0);
+			pill.add( white_cap );
+
+			var red_cap = new THREE.Mesh( sphere_geom, red_mat );
+			red_cap.position.set(0, -2.5, 0);
+			pill.add( red_cap );
+
+			scene.add( pill );
+			
+
+
+			var light = new THREE.PointLight( 'white', 700 );
+			light.position.set( 0, 0, 20 );
+			scene.add(light);
+			
+			function drawFrame( t )
+			{
+				pill.rotation.x = t/1000;
+				pill.rotation.z = t/1200;
+				renderer.render( scene, camera );
+			}
+			
+		</script>
+	</body>
+</html>

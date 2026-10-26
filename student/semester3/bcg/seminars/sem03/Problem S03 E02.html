@@ -1,0 +1,77 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+		<script type="importmap">
+			{ "imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+			} }
+		</script>
+	</head>
+	<body>
+		<script type="module">
+		
+			import * as THREE from "three";
+
+			// Задача: нарисувайте плажна топка, всяка
+			// половина да е от 4 цветни парчета
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 3, 3, 8 );
+			camera.lookAt( scene.position );
+
+			// за удобство
+			var pi2 = Math.PI/2;
+
+			var red_mat = new THREE.MeshBasicMaterial();
+			red_mat.color.set('red');
+
+			var white_mat = new THREE.MeshBasicMaterial();
+			white_mat.color.set('white');
+
+			// Горни осмини на топката - първобитно с повторение
+
+			var octant1_geom = new THREE.SphereGeometry( 1.5, 16, 16, 0, pi2, 0, pi2 );
+			scene.add( new THREE.Mesh( octant1_geom, red_mat ) );
+
+			var octant2_geom = new THREE.SphereGeometry( 1.5, 16, 16, pi2, pi2, 0, pi2 );
+			scene.add( new THREE.Mesh( octant2_geom, white_mat ) );
+
+			var octant3_geom = new THREE.SphereGeometry( 1.5, 16, 16, 2 * pi2, pi2, 0, pi2 );
+			scene.add( new THREE.Mesh( octant3_geom, red_mat ) );
+
+			var octant4_geom = new THREE.SphereGeometry( 1.5, 16, 16, 3 * pi2, pi2, 0, pi2 );
+			scene.add( new THREE.Mesh( octant4_geom, white_mat ) );
+
+			// Долни осмини на топката - чрез цикъл
+
+			var blue_mat = new THREE.MeshBasicMaterial();
+			blue_mat.color.set('blue');
+
+			for (var i = 0; i < 4; ++i)
+			{
+				var bottom_octant_geom = new THREE.SphereGeometry( 1.5, 16, 16, i * pi2, pi2, pi2, pi2 * 2 );
+				scene.add( new THREE.Mesh( bottom_octant_geom, (i % 2 == 0) ? white_mat : blue_mat ) );
+			}
+			
+			// Въртене на сцената
+			function drawFrame( t )
+			{
+				scene.rotation.x = t/1000;
+				scene.rotation.y = t/1200;
+				renderer.render( scene, camera );
+			}
+			
+		</script>
+	</body>
+</html>
