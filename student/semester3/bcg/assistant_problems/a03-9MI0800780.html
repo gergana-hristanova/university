@@ -1,0 +1,276 @@
+﻿<html>
+	!! NO AI WAS USED IN THE MAKING OF THIS !!
+	<head>
+		<style>
+			body { margin: 0; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+		<script type="importmap">
+			{ "imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+			} }
+		</script>
+	</head>
+	<body>
+		<script type="module">
+
+		// SCENE SETUP
+		
+			import * as THREE from "three";
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.shadowMap.enabled = true;
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 50, aspect );
+			camera.position.set( 10, 10, 10 );
+			camera.lookAt( scene.position );
+
+		// GLOBAL VARIABLES (to fix the mess of coordinates)
+		
+			var terr_x = 0;
+			var terr_y = 0;
+			var terr_z = -3;
+
+			// the corners are reversed from the POV of the camera!
+			var terr_r_corner = -3;
+			var terr_l_corner = 0;
+
+			// the reverse of how close the terrace is to the wall
+			var terr_jut = -2;
+
+			var terrace = new THREE.Group();
+			
+			var light_brown_mat = new THREE.MeshPhongMaterial( { color: 'burlywood'} );
+			var salmon_mat = new THREE.MeshPhongMaterial( { color: 'darksalmon'} );
+			var gray_mat = new THREE.MeshPhongMaterial( { color: 'gray'} );
+			var black_mat = new THREE.MeshPhongMaterial( { color: 'black'} );
+			
+		// TERRACE CONSTRUCTION
+
+		// !! NO AI WAS USED IN THE MAKING OF THIS !!
+
+			// 1. Adding a back wall for the terrace to sit against
+
+			var geom = new THREE.BoxGeometry( 100, 100, 1 );
+
+			var back_wall = new THREE.Mesh(
+				geom, new THREE.MeshPhongMaterial( {color: 'palegoldenrod'} ) );
+			back_wall.position.set(0, 0, -5);
+			back_wall.receiveShadow = true;
+			scene.add( back_wall );
+
+			// 2. Constructing the terrace itself
+
+			// floor
+
+			var wide_slate_geom = new THREE.BoxGeometry(3.5, 0.3, 2.5);
+			var wide_slate = new THREE.Mesh( wide_slate_geom, light_brown_mat );
+			wide_slate.position.set(terr_x, terr_y, terr_z);
+			wide_slate.castShadow = true;
+			terrace.add(wide_slate);
+			
+			// front poles
+
+			geom = new THREE.CylinderGeometry(0.08, 0.08, 2, 16);
+			
+			for (var i = terr_l_corner; i >= terr_r_corner; i -= 0.3)
+			{
+				var pole = new THREE.Mesh( geom, gray_mat );
+				pole.castShadow = true;
+				pole.position.set(terr_x + 1.5 + i, terr_y + 1, terr_jut); //terr_y + element's height / 2
+				terrace.add(pole);
+			}
+			
+			// side poles
+
+			geom = new THREE.CylinderGeometry(0.08, 0.08, 3, 16);
+
+			for (var i = terr_jut; i >= terr_jut * 2; i -= 0.3)
+			{
+				var pole = new THREE.Mesh( geom, gray_mat );
+				pole.castShadow = true;
+				pole.position.set(terr_r_corner + terr_x + 1.5, terr_y + 3.5, i);
+				terrace.add(pole);
+				
+				var pole = new THREE.Mesh( geom, gray_mat );
+				pole.castShadow = true;
+				pole.position.set(terr_l_corner + terr_x + 1.5, terr_y + 3.5, i);
+				terrace.add(pole);
+			}
+
+			// side walls
+
+			geom = new THREE.BoxGeometry(0.1, 1.8, 2);
+
+			var side_wall = new THREE.Mesh( geom, salmon_mat );
+			side_wall.castShadow = true;
+			side_wall.position.set(terr_l_corner + terr_x + 1.5, terr_y + 1, terr_jut - 1);
+			terrace.add(side_wall);
+			
+			side_wall = new THREE.Mesh( geom, salmon_mat );
+			side_wall.castShadow = true;
+			side_wall.position.set(terr_r_corner + terr_x + 1.5, terr_y + 1, terr_jut - 1);
+			terrace.add(side_wall);
+			
+			// support beams
+			
+			geom = new THREE.CylinderGeometry(0.15, 0.15, 5, 16);
+
+			var beam = new THREE.Mesh( geom, light_brown_mat );
+			beam.castShadow = true;
+			beam.position.set(terr_r_corner + terr_x + 1.5, terr_y + 2.5, terr_jut);
+			terrace.add(beam);
+			
+			beam = new THREE.Mesh( geom, light_brown_mat );
+			beam.rotation.y = Math.PI / 2;
+			beam.castShadow = true;
+			beam.position.set(terr_r_corner + terr_x + 1.5, terr_y + 2.5, terr_jut);
+			terrace.add(beam);
+			
+			beam = new THREE.Mesh( geom, light_brown_mat );
+			beam.castShadow = true;
+			beam.position.set(terr_l_corner + terr_x + 1.5, terr_y + 2.5, terr_jut);
+			terrace.add(beam);
+
+			// roof
+			
+			geom = new THREE.BoxGeometry(2.5, 0.2, 3.1);
+
+			var roof_slope = new THREE.Mesh( geom, salmon_mat );
+			roof_slope.castShadow = true;
+
+			roof_slope.position.set(terr_l_corner - 0.45  + terr_x + 1.5, terr_y + 5.3, terr_jut - 1);
+			roof_slope.rotation.z = -0.5;
+			terrace.add(roof_slope);
+
+			roof_slope = new THREE.Mesh( geom, salmon_mat );
+			roof_slope.castShadow = true;
+			roof_slope.position.set(terr_r_corner + 0.45  + terr_x + 1.5, terr_y + 5.3, terr_jut - 1);
+			roof_slope.rotation.z = 0.5;
+			terrace.add(roof_slope);
+
+			
+			// roof decorations
+
+			geom = new THREE.SphereGeometry(0.2, 16);
+
+			for (var i = 0; i >= terr_z; i -= 0.7)
+			{
+				var sphere = new THREE.Mesh( geom, light_brown_mat );
+				sphere.castShadow = true;
+				sphere.position.set(terr_l_corner + terr_x + 1.5, terr_y + 5.4, terr_z + 1 + i);
+				terrace.add(sphere);
+				
+				sphere = new THREE.Mesh( geom, light_brown_mat );
+				sphere.castShadow = true;
+				sphere.position.set(terr_r_corner + terr_x + 1.5, terr_y + 5.4, terr_z + 1 + i);
+				terrace.add(sphere);
+			}
+
+			geom = new THREE.BoxGeometry(0.3, 0.3, 3);
+			
+			var roof_dec = new THREE.Mesh( geom, light_brown_mat );
+			roof_dec.castShadow = true;
+			roof_dec.position.set(terr_l_corner + terr_x + 1.5, terr_y + 5.1, terr_z);
+			terrace.add(roof_dec);
+			
+			roof_dec = new THREE.Mesh( geom, light_brown_mat );
+			roof_dec.castShadow = true;
+			roof_dec.position.set(terr_r_corner + terr_x + 1.5, terr_y + 5.1, terr_z);
+			
+			terrace.add(roof_dec);
+			
+			geom = new THREE.BoxGeometry(3.5, 0.3, 0.3);
+			
+			// hand rests
+			
+			roof_dec = new THREE.Mesh( geom, light_brown_mat );
+			roof_dec.castShadow = true;
+			roof_dec.position.set(terr_x, terr_y + 5.1, terr_jut);
+			terrace.add(roof_dec);
+
+			var front_hand_rest = new THREE.Mesh( geom, light_brown_mat );
+			front_hand_rest.castShadow = true;
+			front_hand_rest.position.set(terr_x, terr_y + 2, terr_jut);
+			terrace.add(front_hand_rest);
+
+			geom = new THREE.BoxGeometry(0.3, 0.3, 2.5);
+
+			var side_hand_rest = new THREE.Mesh( geom, light_brown_mat );
+			side_hand_rest.position.set(terr_l_corner + terr_x + 1.5, terr_y + 2, terr_z);
+			terrace.add(side_hand_rest);
+			
+			side_hand_rest = new THREE.Mesh( geom, light_brown_mat );
+			side_hand_rest.position.set(terr_r_corner + terr_x + 1.5, terr_y + 2, terr_z);
+			terrace.add(side_hand_rest);
+
+		// ADDING THE TERRACE TO THE SCENE + COPIES OF IT
+
+			scene.add(terrace);
+
+			var terrace2 = terrace.clone();
+			terrace2.position.set(6, 0, 0);
+			scene.add(terrace2);
+
+			var terrace3 = terrace.clone();
+			terrace3.position.set(-6, 0, 0);
+			scene.add(terrace3);
+
+			var terrace4 = terrace.clone();
+			terrace4.position.set(-12, 0, 0);
+			scene.add(terrace4);
+
+			var terrace5 = terrace.clone();
+			terrace5.position.set(-18, 0, 0);
+			scene.add(terrace5);
+
+			
+		// LIGHT SETUP
+
+			var light = new THREE.SpotLight( 'white', 50 );
+			light.castShadow = true;
+			light.penumbra = 0.9;
+
+			light.position.set( -5, 5, 0 );
+			scene.add( light );
+
+			light = new THREE.SpotLight( 'white', 50 );
+			light.castShadow = true;
+			light.penumbra = 0.9;
+
+			light.position.set( 5, 5, 0 );
+			scene.add( light );
+
+		// STREETLAMP CONSTRUCTION
+
+			var streetlamp = new THREE.Group();
+
+			var stlamp_pole_geom = new THREE.CylinderGeometry(1, 1, 1);
+			var stlamp_pole = new THREE.Mesh( stlamp_pole_geom, black_mat );
+
+			street.add(stlamp_pole);
+
+
+		// ADDING STREETLAMPS TO THE SCENE
+		
+			scene.add(streetlamp);
+
+		// ROTATION (depricated)
+
+			function drawFrame( t )
+			{
+				//terrace.rotation.y = t/5000;
+				renderer.render( scene, camera );
+			}
+
+		// !! NO AI WAS USED IN THE MAKING OF THIS !!
+			
+		</script>
+	</body>
+</html>
