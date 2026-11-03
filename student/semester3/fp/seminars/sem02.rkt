@@ -101,4 +101,4 @@
 (define (qexpt x n)
   (cond [(= n 0) 1]
         [(= 0 (remainder n 2)) (square (qexpt x (/ n 2)))]
-        [else (* x (qexpt (square x) (/ (- n 1) 2)))]))   
+        [else (* x (qexpt (square x) (/ (- n 1) 2)))]))
