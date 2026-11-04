@@ -1,0 +1,90 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+		<script type="importmap">
+			{ "imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+				"csg/": "https://cdn.jsdelivr.net/gh/looeee/threejs-csg@main/src/CSG/"
+			} }
+		</script>
+	</head>
+	<body>
+		<script type="module">
+		
+			import * as THREE from "three";
+			import {CSG} from "csg/CSG.js";
+			
+			
+			// Задача: конструирайте златен осмоъгълен
+			// пепелник-сувенир за четирима. 
+
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'midnightblue' );
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 0, 8 );
+			camera.lookAt( new THREE.Vector3() );
+
+			// var a = new THREE.Mesh( new THREE.CylinderGeometry( 2.3, 2.3, 6 ) );
+			// var b = new THREE.Mesh( new THREE.CylinderGeometry( 1.7, 1.7, 6 ) );
+
+			// var csg = new CSG();
+			// csg.subtract( [a, b] );
+			
+			// var c = csg.toMesh();
+			// c.material = new THREE.MeshLambertMaterial( {color:'crimson'} );
+			// scene.add(c);
+
+
+			var ashTrayGeom = new THREE.CylinderGeometry( 1.7, 2, 1, 8 );
+			var ashTray = new THREE.Mesh(ashTrayGeom);
+
+			var ashTrayHoleGeom = new THREE.CylinderGeometry( 1.5, 1., 1, 8 );
+			var ashTrayHole = new THREE.Mesh(ashTrayHoleGeom);
+			ashTrayHole.position.set(0, 0.3, 0);
+			
+			var gutterGeom = new THREE.CylinderGeometry(0.3, 0.3, 5, 16);
+			var gutter1 = new THREE.Mesh(gutterGeom);
+			gutter1.position.set(0, 0.5, 0);
+			gutter1.rotation.z = Math.PI / 2;
+
+			var gutter2 = new THREE.Mesh(gutterGeom);
+			gutter2.position.set(0, 0.5, 0);
+			gutter2.rotation.z = Math.PI / 2;
+			gutter2.rotation.y = Math.PI / 2;
+
+			var csg = new CSG();
+			csg.subtract([ ashTray, ashTrayHole, gutter1, gutter2 ]);
+
+			var c = csg.toMesh();
+			c.material = new THREE.MeshLambertMaterial( {color: 'gold',specular: 'white'} );
+			scene.add(c);
+	
+			
+			var light = new THREE.PointLight( 'white', 150 );
+			light.position.set( 0, 5, 10 );
+			scene.add( light );
+			
+			
+			function drawFrame( t )
+			{
+				// въртим пепелника
+				c.rotation.x = 0.3+0.2*Math.sin(c.rotation.y);
+				c.rotation.y = t/1000;
+				
+				renderer.render( scene, camera );
+			}
+			
+		</script>
+	</body>
+</html>

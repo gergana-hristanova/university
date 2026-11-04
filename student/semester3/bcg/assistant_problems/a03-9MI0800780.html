@@ -28,7 +28,7 @@
 			
 			var aspect = window.innerWidth/window.innerHeight;
 			var camera = new THREE.PerspectiveCamera( 50, aspect );
-			camera.position.set( 10, 10, 10 );
+			camera.position.set( 12, 12, 10 );
 			camera.lookAt( scene.position );
 
 		// GLOBAL VARIABLES (to fix the mess of coordinates)
@@ -50,6 +50,7 @@
 			var salmon_mat = new THREE.MeshPhongMaterial( { color: 'darksalmon'} );
 			var gray_mat = new THREE.MeshPhongMaterial( { color: 'gray'} );
 			var black_mat = new THREE.MeshPhongMaterial( { color: 'black'} );
+			var beige_mat = new THREE.MeshPhongMaterial( {color: 'palegoldenrod'} );
 			
 		// TERRACE CONSTRUCTION
 
@@ -59,8 +60,7 @@
 
 			var geom = new THREE.BoxGeometry( 100, 100, 1 );
 
-			var back_wall = new THREE.Mesh(
-				geom, new THREE.MeshPhongMaterial( {color: 'palegoldenrod'} ) );
+			var back_wall = new THREE.Mesh(geom,  beige_mat);
 			back_wall.position.set(0, 0, -5);
 			back_wall.receiveShadow = true;
 			scene.add( back_wall );
@@ -210,55 +210,102 @@
 			side_hand_rest.position.set(terr_r_corner + terr_x + 1.5, terr_y + 2, terr_z);
 			terrace.add(side_hand_rest);
 
+			// door
+			
+			var door_geom = new THREE.BoxGeometry( 2, 5, 1 );
+
+			var door = new THREE.Mesh( door_geom, black_mat );
+
+			door.position.set(terr_x, terr_y + 2, -4.9);
+
+			terrace.add(door);
+
+
 		// ADDING THE TERRACE TO THE SCENE + COPIES OF IT
 
-			scene.add(terrace);
+			var terrace_row = new THREE.Group();
+
+			terrace_row.add(terrace);
 
 			var terrace2 = terrace.clone();
 			terrace2.position.set(6, 0, 0);
-			scene.add(terrace2);
+			terrace_row.add(terrace2);
 
 			var terrace3 = terrace.clone();
 			terrace3.position.set(-6, 0, 0);
-			scene.add(terrace3);
+			terrace_row.add(terrace3);
 
 			var terrace4 = terrace.clone();
 			terrace4.position.set(-12, 0, 0);
-			scene.add(terrace4);
+			terrace_row.add(terrace4);
 
 			var terrace5 = terrace.clone();
 			terrace5.position.set(-18, 0, 0);
-			scene.add(terrace5);
+			terrace_row.add(terrace5);
+
+			var terrace6 = terrace.clone();
+			terrace6.position.set(-24, 0, 0);
+			terrace_row.add(terrace6);
+
+			scene.add(terrace_row);
+
+			var terrace_row2 = terrace_row.clone();
+			terrace_row2.position.set(0, -10, 0);
+
+			scene.add(terrace_row2);
 
 			
 		// LIGHT SETUP
 
-			var light = new THREE.SpotLight( 'white', 50 );
-			light.castShadow = true;
-			light.penumbra = 0.9;
+			// var ambientLight = new THREE.AmbientLight( 'white', 0.6 );
+			// scene.add( ambientLight );
 
-			light.position.set( -5, 5, 0 );
-			scene.add( light );
+			// var sunLight = new THREE.DirectionalLight( 'white', 2.5 );
+			// sunLight.position.set( 10, 20, 15 );
+			// sunLight.castShadow = true;
 
-			light = new THREE.SpotLight( 'white', 50 );
-			light.castShadow = true;
-			light.penumbra = 0.9;
+			// sunLight.shadow.camera.left = -25;
+			// sunLight.shadow.camera.right = 10;
+			// sunLight.shadow.camera.top = 15;
+			// sunLight.shadow.camera.bottom = -5;
+			// sunLight.shadow.camera.near = 0.5;
+			// sunLight.shadow.camera.far = 50;
 
-			light.position.set( 5, 5, 0 );
-			scene.add( light );
+			// sunLight.shadow.mapSize.width = 2048;
+			// sunLight.shadow.mapSize.height = 2048;
+
+			// scene.add( sunLight );
 
 		// STREETLAMP CONSTRUCTION
 
 			var streetlamp = new THREE.Group();
 
-			var stlamp_pole_geom = new THREE.CylinderGeometry(1, 1, 1);
+			var stlamp_pole_geom = new THREE.CylinderGeometry(0.1, 0.2, 3);
 			var stlamp_pole = new THREE.Mesh( stlamp_pole_geom, black_mat );
+			stlamp_pole.castShadow = true;
+			streetlamp.add(stlamp_pole);
 
-			street.add(stlamp_pole);
+			var stlamp_plate_geom = new THREE.CylinderGeometry(0.3, 0.1, 0.5);
+			var stlamp_plate = new THREE.Mesh(stlamp_plate_geom, black_mat);
+			stlamp_plate.position.set(0, 1.3, 0);
+			stlamp_plate.castShadow = true;
+			streetlamp.add(stlamp_plate);
+
+			var stlamp_lamp_geom = new THREE.SphereGeometry(0.3, 16, 16);
+			var stlamp_lamp = new THREE.Mesh(stlamp_lamp_geom, beige_mat);
+			stlamp_lamp.position.set(0, 1.7, 0);
+			stlamp_lamp.castShadow = true;
+			streetlamp.add(stlamp_lamp);
+
+			var stlamp_light = new THREE.SpotLight( 'white', 50 );
+			stlamp_light.position.set(0, 1.7, 0);
+			stlamp_light.castShadow = true;
+			streetlamp.add(stlamp_light);
 
 
 		// ADDING STREETLAMPS TO THE SCENE
 		
+			streetlamp.position.set(7, 5, 7);
 			scene.add(streetlamp);
 
 		// ROTATION (depricated)
