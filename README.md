@@ -18,14 +18,17 @@ Includes mandatory courses only. Look at the optional courses at the bottom.
 
 **university**  
 ├── student  
-│ ├── semester1  
-│ │ ├── introduction to programming  
-│ ├── semester2  
-│ │ ├── object-oriented programming  
-│ ├── semester3  
-│ │ ├── basics of computer graphics  
-│ │ ├── functional programming  
-│ │ ├── data structures and programming  
+│  ├─ semester1  
+│  │  ├─ introduction to programming  
+│  │  └  
+│  ├─ semester2  
+│  │  ├─ object-oriented programming  
+│  │  └  
+│  ├─ semester3  
+│  │  ├─ basics of computer graphics  
+│  │  ├─ functional programming  
+│  │  ├─ data structures and programming  
+│  │  └  
 
 ---
 
