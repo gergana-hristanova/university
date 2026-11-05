@@ -14,7 +14,7 @@ A central repository for university projects and assignments, serving as an orga
 
 ## 📂 Structure
 
-Includes mandatory courses only. Look at the optional courses at the bottom.
+Includes mandatory courses only. Optional courses are at the bottom.
 
 **university**  
 ├─ student  
