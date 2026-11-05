@@ -17,7 +17,7 @@ A central repository for university projects and assignments, serving as an orga
 Includes mandatory courses only. Optional courses are at the bottom.
 
 ```
-**university**  
+university  
 ├─ student  
 │  ├─ semester1  
 │  │  ├─ introduction to programming  
