@@ -46,3 +46,4 @@ Includes mandatory courses only. Optional courses are at the bottom.
 
 ## 🪶 Optional Courses
 1. [Modern Java Technologies 2026](https://github.com/gergana-hristanova/MJT-2026)
+2. Programming 101
