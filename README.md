@@ -14,21 +14,18 @@ A central repository for university projects and assignments, serving as an orga
 
 ## 📂 Structure
 
+Includes mandatory courses only. Look at the optional courses at the bottom.
+
 **university**  
 ├── student  
-│ ├── semester1 (introduction to programming)  
-│ │ ├── homework  
-│ │ ├── lectures  
-│ │ ├── practicums  
-│ │ ├── seminars  
-│ ├── semester2 (object-oriented programming)  
-│ │ ├── extras  
-│ │ ├── practicums  
-│ │ ├── seminars  
+│ ├── semester1
+│ │ ├── introduction to programming
+│ ├── semester2
+│ │ ├── object-oriented programming  
 │ ├── semester3  
-│ │ ├── bcg (basics of computer graphics)  
-│ │ ├── fp (functional programming)  
-│ │ ├── dsp (data structures and programming)  
+│ │ ├── basics of computer graphics  
+│ │ ├── functional programming  
+│ │ ├── data structures and programming  
 
 ---
 
