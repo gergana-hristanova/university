@@ -17,15 +17,20 @@ A central repository for university projects and assignments, serving as an orga
 Includes mandatory courses only. Optional courses are at the bottom.
 
 ```
-university  
-├─ student  
+university
+│  
+├─ student
+│  │  
 │  ├─ semester1  
+│  │  │  
 │  │  ├─ introduction to programming  
 │  │  └  
-│  ├─ semester2  
+│  ├─ semester2
+│  │  │  
 │  │  ├─ object-oriented programming  
 │  │  └  
-│  ├─ semester3  
+│  ├─ semester3
+│  │  │  
 │  │  ├─ basics of computer graphics  
 │  │  ├─ data structures and programming  
 │  │  ├─ functional programming  
