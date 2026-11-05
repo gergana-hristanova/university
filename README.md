@@ -18,9 +18,9 @@ Includes mandatory courses only. Look at the optional courses at the bottom.
 
 **university**  
 ├── student  
-│ ├── semester1
-│ │ ├── introduction to programming
-│ ├── semester2
+│ ├── semester1  
+│ │ ├── introduction to programming  
+│ ├── semester2  
 │ │ ├── object-oriented programming  
 │ ├── semester3  
 │ │ ├── basics of computer graphics  
