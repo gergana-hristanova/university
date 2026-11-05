@@ -16,6 +16,7 @@ A central repository for university projects and assignments, serving as an orga
 
 Includes mandatory courses only. Optional courses are at the bottom.
 
+```
 **university**  
 ├─ student  
 │  ├─ semester1  
@@ -26,11 +27,12 @@ Includes mandatory courses only. Optional courses are at the bottom.
 │  │  └  
 │  ├─ semester3  
 │  │  ├─ basics of computer graphics  
-│  │  ├─ functional programming  
 │  │  ├─ data structures and programming  
+│  │  ├─ functional programming  
 │  │  └  
 │  └  
-└  
+└
+```
 
 ---
 
