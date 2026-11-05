@@ -32,10 +32,15 @@ A central repository for university projects and assignments, serving as an orga
 
 ---
 
-## 📚 Covered Courses
+## 📚 Mandatory Courses
 
 1. Introduction to Programming
 2. Object-oriented Programming
 3. Functional Programming
 4. Data Structures and Programming
 5. Basics of Computer Graphics
+
+---
+
+## 🪶 Optional Courses
+1. [Modern Java Technologies 2026](https://github.com/gergana-hristanova/MJT-2026)
