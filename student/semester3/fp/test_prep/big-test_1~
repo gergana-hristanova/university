@@ -1,0 +1,14 @@
+#lang racket
+
+(define head car)
+(define tail cdr)
+
+; === Ex 1 ===
+
+(define (subsets lst)
+  (if (null? lst)
+      (list '())
+      (let ([sub-subsets (subsets (tail lst))])
+        (append sub-subsets (map (lambda (x) (cons (head lst) x)) sub-subsets)))))
+
+; === Ex 2 ===
