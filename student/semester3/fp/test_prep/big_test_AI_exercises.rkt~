@@ -1,0 +1,18 @@
+#lang racket
+
+; === Ex 2 ===
+
+(define (num-len n)
+  (define (loop n count)
+    (if (< n 10)
+        (+ 1 count)
+        (loop (quotient n 10) (+ 1 count))))
+  (loop n 0))
+
+(define (filter-by-position n p?)
+  (define (loop n p? count res)
+    (cond [(<= n 0) res]
+          [else (if (p? count)
+                    (loop (quotient n 10) p? (+ 1 count) (+ (* (expt 10 (num-len res)) (remainder n 10)) res))
+                    (loop (quotient n 10) p? (+ 1 count) res))]))
+  (loop n p? 1 0))
