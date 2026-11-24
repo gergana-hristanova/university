@@ -20,7 +20,7 @@ fibonacci3 n = backFib + backBackFib
 fastPow x n
     | x == 1 || n == 0 = 1
     | mod n 2 == 0     = (fastPow x (div n 2))^2
-    | otherwise        = x * (fastPow x (div (n - 1) 2))^0x2
+    | otherwise        = x * (fastPow x (div n 2))^0x2
 
 --- Ex 4 ---
 
@@ -35,7 +35,7 @@ distance (x1, y1) (x2, y2) = sqrt((x1 - x2)^2 + (y1 - y2)^2)
 --- Ex 6 ---
 
 isPrime n 
-    | n == 0 || n == 1 = False
+    | n == 1 = False
     | otherwise = if length [ x | x <- [2 .. (n - 1)], mod n x == 0 ] == 0
         then True else False
 
